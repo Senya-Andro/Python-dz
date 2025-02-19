@@ -11,20 +11,17 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 driver.get("https://bonigarcia.dev/selenium-webdriver-java/loading-images.html")
 
 # Ожидание загрузки всех картинок
-wait = WebDriverWait(driver, 10)
-wait.until(
-  EC.presence_of_all_elements_located((By.CSS_SELECTOR, "img[src]"))
- )
+WebDriverWait(driver, 20).until(
+  EC.presence_of_all_elements_located((By.CSS_SELECTOR, "#image-container img"))
+)
 
 # Получение атрибута src у 3-й картинки
-images = driver.find_elements(By.CSS_SELECTOR, "img")  # Находим все изображения
-third_image_src = None
+images = driver.find_elements(By.CSS_SELECTOR, "#image-container img")  # Находим все изображения
 
 if len(images) >= 3:  # Проверяем, что есть хотя бы 3 картинки
-     third_image_src = images[2].get_attribute("src")
-print("На странице меньше 3 картинок.")
-
-# Вывод в консоль значения
-print(f"Атрибут src у 3-й картинки: {third_image_src}")
+    src_attribute = images[2].get_attribute("src")
+    print(f"Атрибут src у 3-й картинки: {src_attribute}")
+else:
+    print(f"Найдено изображений: {len(images)}")
 
 driver.quit()
