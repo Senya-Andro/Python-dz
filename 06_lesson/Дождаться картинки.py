@@ -25,3 +25,6 @@ else:
     print(f"Найдено изображений: {len(images)}")
 
 driver.quit()
+
+
+
